@@ -23,7 +23,7 @@ def ignore?(message, bot_name)
 end
 
 def invalid_command?(cmd)
-  COMMAND.key?(cmd.to_sym)
+  !COMMAND.key?(cmd.to_sym)
 end
 
 def invalid_command_param?(cmd, param)
