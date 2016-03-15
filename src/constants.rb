@@ -2,15 +2,12 @@ TOKEN = ENV['TOKEN']
 BOT_NAME = ENV['BOT_NAME']
 
 TIMEOUT = 60 # 1 minute
-WATCH_USERS_LIMIT = 5
-WATCH_STOCKS_LIMIT = 10
 
 CHART_PATH = 'http://chart.finance.yahoo.com/z?'.freeze
 PRICE_PATH = 'http://download.finance.yahoo.com/d/quotes.csv?'.freeze
 NEWS_PATH = 'https://feeds.finance.yahoo.com/rss/2.0/headline?'.freeze
 CURRENCY_PATH = './data/currency.csv'.freeze
 STOCK_PATH = './data/stock.csv'.freeze
-WATCH_PATH = './data/watch.yaml'.freeze
 CHART_IMAGE_PATH = './tmp/chart.jpg'.freeze
 LOG_PATH = './tmp/errors.log'.freeze
 
@@ -53,13 +50,5 @@ COMMAND = { start:
             charts:
                     { valid_param: true, photo: true, msg: { parse_mode: 'HTML' } },
             stat:
-                    { valid_param: true, photo: true, msg: { parse_mode: 'HTML', disable_web_page_preview: true } },
-            watch:
-                    { valid_param: true, authenticate: true, msg: {} },
-            unwatch:
-                    { valid_param: true, authenticate: true, msg: {} },
-            watch_clear:
-                    { valid_param: false, authenticate: true, msg: {} },
-            watch_list:
-                    { valid_param: false, authenticate: true, msg: {} }
+                    { valid_param: true, photo: true, msg: { parse_mode: 'HTML', disable_web_page_preview: true } }
         }.freeze

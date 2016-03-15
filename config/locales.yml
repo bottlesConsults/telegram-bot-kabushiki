@@ -13,6 +13,4 @@ en:
   exception_log: "killed by %{name} %{id} %{msg} %{e}\n"
   invalid_command_reply: "%{emoji} %{msg} not found"
   invalid_param_reply: "%{emoji} %{msg} not valid. type only alphabet, number and ."
-  watch_reply: "you are watching %{param}"
-  watch_nothing_reply: "you are not watching any stock"
 

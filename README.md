@@ -16,11 +16,7 @@ $ bundle
 
 ##Configuration
 
-
-1. Change src/constants/secrets.rb.sample to src/constants/secrets.rb
-2. Change config/watch.yaml.sample to config/watch.yaml
-3. In secrets.rb, add the name 'BOT_NAME' and token 'TOKEN' of your bot. Obtain them from [BotFather](https://core.telegram.org/bots#botfather)
-4. In watch.yaml, update your chat_id
+Add the name 'BOT_NAME' and token 'TOKEN' of your bot. Obtain them from [BotFather](https://core.telegram.org/bots#botfather)
 
 
 Execute:

@@ -12,7 +12,6 @@ class CommandHandler
   def initialize
     @currency = CurrencyParser.new(CURRENCY_PATH)
     @stock = StockParser.new(STOCK_PATH)
-    @watch = WatchParser.new(WATCH_PATH)
   end
 
   def list(options = {})
@@ -63,26 +62,5 @@ class CommandHandler
     end
 
     result
-  end
-
-  def watch(options = {})
-    result = @watch.add(options[:user], options[:param])
-    return result[:status] + result[:param] ? I18n.t('watch_reply', param: result[:param]) : ''
-  end
-
-  def unwatch(options = {})
-    result = @watch.remove(options[:user], options[:param])
-    return result[:status] + result[:param] ? I18n.t('watch_reply', param: result[:param]) : ''
-  end
-
-  def watch_clear(options = {})
-    result = @watch.clear(options[:user])
-    return result[:status] + result[:param] ? result[:param] : ''
-  end
-
-  def watch_list(options = {})
-    list = @watch.list[options[:user]]
-    return I18n.t('watch_nothing_reply') if list.empty?
-    I18n.t('watch_reply', param: list.join(', '))
   end
 end
