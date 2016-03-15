@@ -1,4 +1,4 @@
-require_relative 'constants/constants'
+require_relative 'constants'
 require 'open-uri'
 require 'nokogiri'
 require 'uri'

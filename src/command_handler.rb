@@ -1,4 +1,4 @@
-require_relative 'constants/constants'
+require_relative 'constants'
 require_relative 'parser/stock_parser'
 require_relative 'parser/currency_parser'
 require_relative 'parser/watch_parser'

@@ -1,4 +1,4 @@
-require_relative 'constants/constants'
+require_relative 'constants'
 
 module FormatHelper
   def format(data)

@@ -1,6 +1,5 @@
 require 'telegram/bot'
-require './src/constants/constants'
-require './src/constants/secrets'
+require './src/constants'
 require './src/command_handler'
 
 namespace :bot do

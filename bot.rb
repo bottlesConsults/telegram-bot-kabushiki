@@ -1,6 +1,6 @@
 require 'i18n'
 require 'telegram/bot'
-require_relative 'src/constants/constants'
+require_relative 'src/constants'
 require_relative 'src/command_handler'
 
 logger = Logger.new(LOG_PATH, Logger::DEBUG)

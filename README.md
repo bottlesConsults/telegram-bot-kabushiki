@@ -16,6 +16,7 @@ $ bundle
 
 ##Configuration
 
+
 1. Change src/constants/secrets.rb.sample to src/constants/secrets.rb
 2. Change config/watch.yaml.sample to config/watch.yaml
 3. In secrets.rb, add the name 'BOT_NAME' and token 'TOKEN' of your bot. Obtain them from [BotFather](https://core.telegram.org/bots#botfather)
@@ -51,3 +52,4 @@ $ ruby bot.rb
 
 ##TODO
 1. Write test for new commands
+2. to update configuration
