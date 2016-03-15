@@ -1,7 +1,6 @@
 require_relative 'constants'
 require_relative 'parser/stock_parser'
 require_relative 'parser/currency_parser'
-require_relative 'parser/watch_parser'
 require_relative 'api_helper'
 require_relative 'format_helper'
 
