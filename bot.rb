@@ -10,6 +10,26 @@ I18n.load_path = Dir['config/locales.yml']
 I18n.locale = :en
 I18n.backend.load_translations
 
+def stale?(time)
+  DateTime.now.to_time.to_i - time > TIMEOUT
+end
+
+def group_chat?(message)
+  message.chat.id != message.from.id
+end
+
+def ignore?(message, bot_name)
+  stale?(message.date) || (group_chat?(message) && (bot_name != BOT_NAME))
+end
+
+def invalid_command?(cmd)
+  COMMAND.key?(cmd.to_sym)
+end
+
+def invalid_command_param?(cmd, param)
+  COMMAND.dig(cmd.to_sym, :valid_param) && param.nil?
+end
+
 Telegram::Bot::Client.run(TOKEN, logger: logger) do |bot|
   bot.listen do |message|
     begin
@@ -17,31 +37,31 @@ Telegram::Bot::Client.run(TOKEN, logger: logger) do |bot|
 
       # process the params
       arg = message.text.split(' ')
-      arg[0].slice!(BOT_NAME)
+      bot_name = arg[0].slice!(BOT_NAME)
       cmd = arg[0] ? arg[0][1..-1] : nil
       param = arg[1] && arg[1].match(/^[A-Za-z0-9.]+$/) ? arg[1].upcase : nil
       name = message.from.first_name
 
       # validation
-      return if DateTime.now.to_time.to_i - message.date > TIMEOUT
+      next if ignore?(message, bot_name)
 
       unless message.text
         bot.api.send_message(chat_id: message.chat.id, text: I18n.t('instruction'))
-        return
+        next
       end
 
-      unless COMMAND.key?(cmd.to_sym)
+      if invalid_command?(cmd)
         bot.api.send_message(chat_id: message.chat.id,
-                             text: I18n.t('invalid_command_reply',
+                             text: I18n.t('invalid_command',
                                           emoji: Emoji::FACE_WITH_NO_GOOD_GESTURE,
                                           msg: arg[0]))
-        return
+        next
       end
 
-      if COMMAND.dig(cmd.to_sym, :valid_param) && param.nil?
+      if invalid_command_param?(cmd, param)
         bot.api.send_message(chat_id: message.chat.id,
-                             text: I18n.t('invalid_param_reply', name: name, emoji: Emoji::MONKEYS, msg: arg[1]))
-        return
+                             text: I18n.t('invalid_param', name: name, emoji: Emoji::MONKEYS, msg: arg[1]))
+        next
       end
 
       # grab data from api
@@ -51,7 +71,7 @@ Telegram::Bot::Client.run(TOKEN, logger: logger) do |bot|
                              text: I18n.t('instruction'))
       when 'start'
         bot.api.send_message(chat_id: message.chat.id,
-                             text: I18n.t('welcome_reply', name: name, emoji: Emoji::FACE_THROWING_A_KISS))
+                             text: I18n.t('welcome', name: name, emoji: Emoji::FACE_THROWING_A_KISS))
       else
         if command.respond_to?(cmd, param: param, user: message.chat.id)
           result = command.send(cmd, param: param, user: message.chat.id)
@@ -61,12 +81,12 @@ Telegram::Bot::Client.run(TOKEN, logger: logger) do |bot|
           end
 
           bot.api.send_message(chat_id: message.chat.id,
-                               text: result || I18n.t('negative_reply', name: name, param: param, cmd: cmd),
+                               text: result || I18n.t('negative', name: name, param: param, cmd: cmd),
                                **COMMAND.dig(cmd.to_sym, :msg))
         end
       end
     rescue Exception => e
-      logger.fatal(I18n.t('exception_log', name: message.from.first_name, id: message.from.id, msg: message.text, e: e))
+      logger.fatal(I18n.t('exception', name: message.from.first_name, id: message.from.id, msg: message.text, e: e))
     end
   end
 end

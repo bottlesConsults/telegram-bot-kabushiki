@@ -8,9 +8,9 @@ en:
     /stock - states the last traded price of *one* stock counter /stock Z78.SI
     /charts - (expert mode) depicts the graphical %change of some of the matching SG stocks and STI /charts bank
     /stat - (expert mode) provides details about the stock counter /stat GOOG
-  welcome_reply: "hi, %{name} %{emoji}"
-  negative_reply: "sorry %{name}, i cant find [%{param}] in /%{cmd}"
-  exception_log: "killed by %{name} %{id} %{msg} %{e}\n"
-  invalid_command_reply: "%{emoji} %{msg} not found"
-  invalid_param_reply: "%{emoji} %{msg} not valid. type only alphabet, number and ."
+  welcome: "hi, %{name} %{emoji}"
+  negative: "sorry %{name}, i cant find [%{param}] in /%{cmd}"
+  exception: "killed by %{name} %{id} %{msg} %{e}\n"
+  invalid_command: "%{emoji} %{msg} not found"
+  invalid_param: "%{emoji} %{msg} not valid. type only alphabet, number and ."
 
